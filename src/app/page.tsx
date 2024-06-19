@@ -1,7 +1,12 @@
-import React from "react";
+import { Hero, Highlights } from "@/components/section/home";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Hero />
+      <Highlights />
+    </div>
+  );
 };
 
 export default Home;
