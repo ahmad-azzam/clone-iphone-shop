@@ -158,9 +158,9 @@ const VideoCarousel: React.FC = () => {
                   playsInline
                   preload="auto"
                   muted
-                  // className={clsx("pointer-events-none", {
-                  //   "translate-x-44": item.id === 2,
-                  // })}
+                  className={clsx("pointer-events-none", {
+                    "translate-x-44": item.id === 2,
+                  })}
                   ref={(element) => {
                     videoRef.current[index] = element;
                   }}
@@ -173,7 +173,6 @@ const VideoCarousel: React.FC = () => {
                     setVideo((prev) => ({ ...prev, isPlaying: true }));
                   }}
                   onLoadedMetadataCapture={(event) => {
-                    console.log({ event });
                     handleLoadedMetadata(index, event);
                   }}
                 >
