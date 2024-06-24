@@ -16,7 +16,8 @@ type IphoneProps = {
 } & GroupProps;
 
 function Iphone(props: any) {
-  const { nodes, materials } = useGLTF("/models/scene.glb");
+  const { nodes, materials }: { nodes: any; materials: any } =
+    useGLTF("/models/scene.glb");
 
   // const texture = useTexture(props.item.img);
 
@@ -41,21 +42,21 @@ function Iphone(props: any) {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.ttmRoLdJipiIOmf.geometry}
+        geometry={(nodes.ttmRoLdJipiIOmf as any).geometry}
         material={materials.hUlRcbieVuIiOXG}
         scale={0.01}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.DjsDkGiopeiEJZK.geometry}
+        geometry={(nodes.DjsDkGiopeiEJZK as any).geometry}
         material={materials.PaletteMaterial001}
         scale={0.01}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.buRWvyqhBBgcJFo.geometry}
+        geometry={(nodes.buRWvyqhBBgcJFo as any).geometry}
         material={materials.PaletteMaterial002}
         scale={0.01}
       />
