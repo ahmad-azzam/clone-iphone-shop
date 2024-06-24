@@ -1,4 +1,9 @@
-import { OrbitControls, PerspectiveCamera, View } from "@react-three/drei";
+import {
+  Html,
+  OrbitControls,
+  PerspectiveCamera,
+  View,
+} from "@react-three/drei";
 import clsx from "clsx";
 import { StaticImageData } from "next/image";
 import React from "react";
@@ -7,7 +12,7 @@ import Light from "../light";
 import Iphone from "../iphone";
 import { extend } from "@react-three/fiber";
 
-extend({ OrbitControls, PerspectiveCamera, View });
+// extend({ OrbitControls, PerspectiveCamera, View });
 
 type ModelViewProps = {
   index: number;
@@ -32,6 +37,14 @@ const ModelView: React.FC<ModelViewProps> = ({
   setRotationState,
   size,
 }) => {
+  const [ref, setRef] = React.useState<any>();
+
+  React.useEffect(() => {
+    if (controlRef) {
+      setRef(controlRef);
+    }
+  }, [controlRef]);
+
   return (
     <View
       id={gsapType}
@@ -49,13 +62,13 @@ const ModelView: React.FC<ModelViewProps> = ({
 
       <OrbitControls
         makeDefault
-        ref={controlRef}
+        ref={ref}
         enableZoom={false}
         enablePan={false}
         rotateSpeed={0.4}
         target={new THREE.Vector3(0, 0, 0)}
         onEnd={() => {
-          setRotationState(controlRef.current.getAzimuthalAngle());
+          setRotationState(ref.current.getAzimuthalAngle());
         }}
       />
 
@@ -64,13 +77,20 @@ const ModelView: React.FC<ModelViewProps> = ({
         name={`${index === 1 ? "small" : "large"}`}
         position={[0, 0, 0]}
       >
-        <Iphone
-          scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
-          item={item}
-          size={size}
-        />
+        <React.Suspense
+          fallback={
+            <Html>
+              <div>Loading...</div>
+            </Html>
+          }
+        >
+          <Iphone
+            scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
+            item={item}
+            size={size}
+          />
+        </React.Suspense>
       </group>
-      {/* <React.Suspense fallback={<div>Loading...</div>}></React.Suspense> */}
     </View>
   );
 };

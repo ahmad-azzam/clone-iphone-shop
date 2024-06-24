@@ -6,12 +6,10 @@ import React from "react";
 import ModelView from "./view";
 import { yellowImg } from "@/lib/assets/images";
 import * as THREE from "three";
-import { Canvas, extend } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
 import { MODELS, SIZES } from "@/lib/constant";
 import { animateWithGsapTimeline } from "@/lib/utils/animation";
-
-extend({ View });
 
 const Model: React.FC = () => {
   const [size, setSize] = React.useState("small");
@@ -22,6 +20,7 @@ const Model: React.FC = () => {
   });
   const [smallRotation, setSmallRotation] = React.useState(0);
   const [largeRotation, setLargeRotation] = React.useState(0);
+  const [element, setElement] = React.useState<HTMLElement>();
 
   const cameraControlSmall = React.useRef();
   const cameraControlLarge = React.useRef();
@@ -59,6 +58,18 @@ const Model: React.FC = () => {
       });
     }
   }, [size]);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const element = document.getElementById("root");
+
+      if (element) setElement(element);
+    }
+
+    return () => {
+      setElement(undefined);
+    };
+  }, []);
 
   useGSAP(() => {
     gsap.to("#heading", {
@@ -105,7 +116,7 @@ const Model: React.FC = () => {
                 right: 0,
                 overflow: "hidden",
               }}
-              eventSource={document.getElementById("root")!}
+              eventSource={element}
             >
               <View.Port />
             </Canvas>

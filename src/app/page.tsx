@@ -1,4 +1,4 @@
-import { Hero, Highlights, Model } from "@/components/section/home";
+import { Features, Hero, Highlights, Model } from "@/components/section/home";
 
 const Home = () => {
   return (
@@ -6,6 +6,7 @@ const Home = () => {
       <Hero />
       <Highlights />
       <Model />
+      <Features />
     </div>
   );
 };

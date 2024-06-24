@@ -1,3 +1,5 @@
+"use client";
+
 import { useGLTF, useTexture } from "@react-three/drei";
 import { GroupProps } from "@react-three/fiber";
 import { StaticImageData } from "next/image";
@@ -13,26 +15,26 @@ type IphoneProps = {
   size: string;
 } & GroupProps;
 
-const Iphone = (props: IphoneProps) => {
+function Iphone(props: any) {
   const { nodes, materials } = useGLTF("/models/scene.glb");
 
-  // const texture = useTexture(props.item.img as unknown as string);
+  // const texture = useTexture(props.item.img);
 
-  // React.useEffect(() => {
-  //   Object.entries(materials).map((material: any) => {
-  //     // these are the material names that can't be changed color
-  //     if (
-  //       material[0] !== "zFdeDaGNRwzccye" &&
-  //       material[0] !== "ujsvqBWRMnqdwPx" &&
-  //       material[0] !== "hUlRcbieVuIiOXG" &&
-  //       material[0] !== "jlzuBkUzuJqgiAK" &&
-  //       material[0] !== "xNrofRCqOXXHVZt"
-  //     ) {
-  //       material[1].color = new THREE.Color(props.item.color[0]);
-  //     }
-  //     material[1].needsUpdate = true;
-  //   });
-  // }, [materials, props.item]);
+  React.useEffect(() => {
+    Object.entries(materials).map((material: any) => {
+      // these are the material names that can't be changed color
+      if (
+        material[0] !== "zFdeDaGNRwzccye" &&
+        material[0] !== "ujsvqBWRMnqdwPx" &&
+        material[0] !== "hUlRcbieVuIiOXG" &&
+        material[0] !== "jlzuBkUzuJqgiAK" &&
+        material[0] !== "xNrofRCqOXXHVZt"
+      ) {
+        material[1].color = new THREE.Color(props.item.color[0]);
+      }
+      material[1].needsUpdate = true;
+    });
+  }, [materials, props.item]);
 
   return (
     <group {...props} dispose={null}>
@@ -255,8 +257,8 @@ const Iphone = (props: IphoneProps) => {
       />
     </group>
   );
-};
-
-useGLTF.preload("/models/scene.glb");
+}
 
 export default Iphone;
+
+useGLTF.preload("/models/scene.glb");
